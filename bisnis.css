@@ -1,0 +1,48 @@
+.navbar-custom {
+  padding-top: 15px; /* Increase top padding */
+  padding-bottom: 15px; /* Increase bottom padding */
+}
+
+main {
+  height: calc(100vh - 56px); /* Adjust based on your navbar height */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 20px;
+  overflow: hidden; /* Prevent any overflow that could cause scrolling */
+}
+
+main div {
+  max-width: 800px; /* Set a maximum width for better readability */
+  width: 100%;
+}
+
+h1 {
+  font-size: 2.5rem;
+}
+
+p {
+  font-size: 1rem;
+}
+
+.containerkodetulisan {
+    text-align: center;
+}
+
+.cardtu {
+    margin-top: 70px;
+}
+
+
+@media (max-width: 768px) {
+  h1 {
+    font-size: 2rem; /* Adjust the font size for smaller screens */
+  }
+
+  p {
+    font-size: 0.875rem;
+  }
+
+ 
+}

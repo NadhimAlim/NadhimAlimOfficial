@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Login and Registration Form</title>
+    <link rel="stylesheet" href="./login.css" />
+    <link
+      rel="stylesheet"
+      href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+    />
+    <style>
+      body {
+        background-color: #fff;
+      }
+      .btn-color {
+        background-color: #990808;
+        color: #fff;
+        transition: background-color 0.3s;
+      }
+      .btn-color:hover {
+        background-color: #cf9a07; /* Darker shade on hover */
+      }
+      .profile-image-pic {
+        height: 200px;
+        width: 200px;
+        object-fit: cover;
+      }
+      .cardbody-color {
+        background-color: #ebf2fa;
+        border-radius: 10px;
+        box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+      }
+      a {
+        text-decoration: none;
+      }
+      .form-control {
+        border-radius: 5px;
+      }
+      .form-text {
+        margin-top: 10px;
+      }
+
+      @media (max-width: 576px) {
+        .profile-image-pic {
+          height: 150px;
+          width: 150px;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <div class="row">
+        <div class="col-md-6 offset-md-3">
+          <h2 class="text-center text-dark mt-5">Login</h2>
+          <div class="text-center mb-4 text-dark">Made with Nadhim Alim</div>
+          <div class="card my-5 cardbody-color">
+            <form class="card-body p-lg-5" id="loginForm">
+              <div class="text-center">
+                <img
+                  src="./img/logonadhimalim.jpg"
+                  class="img-fluid profile-image-pic img-thumbnail rounded-circle my-3"
+                  alt="profile"
+                />
+              </div>
+              <div class="mb-3">
+                <input
+                  type="text"
+                  class="form-control"
+                  id="kodeemail"
+                  placeholder="Masukkan Kode dari Email"
+                  required
+                />
+              </div>
+              
+              <div class="text-center">
+                <button type="submit" class="btn btn-color px-5 mb-4 w-100">
+                  Login
+                </button>
+              </div>
+              <div id="emailHelp" class="form-text text-center mb-5 text-dark">
+                Sign Up
+                <a href="#" class="text-dark fw-bold" data-toggle="modal" data-target="#registrationModal">Create an Account</a>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Registration Modal -->
+    <div class="modal fade" id="registrationModal" tabindex="-1" role="dialog" aria-labelledby="registrationModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="registrationModalLabel">Register</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <form id="registrationForm">
+              <div class="mb-3">
+                <input
+                  type="email"
+                  class="form-control"
+                  id="email"
+                  placeholder="Masukkan Email"
+                  required
+                />
+              </div>
+              <div class="text-center">
+                <button type="submit" class="btn btn-color w-100">Daftar</button>
+              </div>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.0.7/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script>
+      // Handle registration form submission
+      document.getElementById('registrationForm').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent default form submission
+        const email = document.getElementById('email').value;
+
+        // Send email to server to process
+        fetch('/send-email', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          body: JSON.stringify({ email }),
+        })
+        .then(response => {
+          if (response.ok) {
+            alert('Kode login telah dikirim ke email Anda!');
+            $('#registrationModal').modal('hide'); // Hide modal after successful submission
+          } else {
+            alert('Terjadi kesalahan, silakan coba lagi.');
+          }
+        })
+        .catch(error => {
+          console.error('Error:', error);
+        });
+      });
+    </script>
+    <script src="./server.js"></script>
+  </body>
+</html>
